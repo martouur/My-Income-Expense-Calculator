@@ -1,4 +1,4 @@
-// BUDGET CONTROLLER
+// Building the budgetController Function
 let budgetController = (function() {
 
     let Expense = function(id, description, value) {
@@ -40,22 +40,21 @@ let budgetController = (function() {
         addItem: function(type, des, val) {
             var newItem;
             
-            // Create new ID
+            
             if (data.allItems[type].length > 0) 
                 ID = data.allItems[type][data.allItems[type].length - 1].id + 1; 
             else ID = 0;
     
-            // Create new item based on 'inc' or 'exp' type
+            
             if (type === 'exp') {
                 newItem = new Expense(ID, des, val);
             } else if (type === 'inc') {
                 newItem = new Income(ID, des, val); 
             }
 
-            // Push it into data structure 
+            // Adding into our data structure
             data.allItems[type].push(newItem); 
 
-            // Return the new element 
             return newItem; 
         },
 
@@ -96,7 +95,7 @@ let budgetController = (function() {
 })();
 
 
-// UI CONTROLLER
+// Buildinig the UserInterface function
 let UIController = (function() {
 
     let DOMstrings = {
@@ -157,12 +156,10 @@ let UIController = (function() {
                 html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
 
-            // Replace placeholder text with some actual code 
             newHtml = html.replace('%id%', obj.id);
             newHtml = newHtml.replace('%description%', obj.description);
             newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
 
-            // Insert the HTML into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
         },
 
@@ -229,7 +226,7 @@ let UIController = (function() {
 })();
 
 
-// GLOBAL APP CONTROLLER
+// building the general app controller
 let controller = (function(budgetCtrl, UICtrl) {
 
     var setupEventListeners = function() {
@@ -250,13 +247,13 @@ let controller = (function(budgetCtrl, UICtrl) {
     };
 
     let updateBudget = function() {
-        //1.Calculate the budget 
+        //1.Calculate  
         budgetCtrl.calculateBudget(); 
 
-        //2. Return the budget
+        //2. Return
         let budget = budgetCtrl.getBudget(); 
 
-        //3. Display the budget on the UI
+        //3. Display 
         UICtrl.displayBudget(budget); 
     }
 
